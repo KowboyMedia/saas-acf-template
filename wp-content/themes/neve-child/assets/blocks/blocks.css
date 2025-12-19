@@ -1,0 +1,77 @@
+.kowboy-cta-two-buttons {
+    padding: 64px 24px;
+}
+
+.kowboy-cta-two-buttons__inner,
+.kowboy-hero-background-buttons__inner {
+    max-width: 1170px;
+    margin: 0 auto;
+}
+
+.kowboy-hero-background-buttons__heading, .kowboy-hero-background-buttons__subheading {
+    text-align: center;
+}
+.kowboy-hero-background-buttons__subheading {
+    font-size: 24px;
+    font-weight: 500;
+}
+.kowboy-hero-background-buttons__actions {
+    justify-content: center;
+}
+
+.kowboy-cta-two-buttons__actions,
+.kowboy-hero-background-buttons__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+.kowboy-cta-two-buttons__button,
+.kowboy-hero-background-buttons__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 50px;
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #1f2937;
+    font-size: 18px;
+    line-height: 28px;
+}
+.kowboy-hero-background-buttons__button:hover {
+    background-color: #000000;
+    color: #ffffff;
+    opacity: 1;
+}
+
+.kowboy-hero-background-buttons {
+    background-size: cover;
+    background-position: top center;
+    color: #ffffff;
+    position: relative;
+    padding: 216px 20px 185px 20px;
+}
+
+.kowboy-hero-background-buttons::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.kowboy-hero-background-buttons__inner {
+    position: relative;
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .kowboy-hero-background-buttons {
+        padding: 100px 16px;
+    }
+    .kowboy-hero-background-buttons__subheading {
+        font-size: 20px;
+    }
+    .kowboy-hero-background-buttons__button {
+        font-size: 16px;
+    }
+}
