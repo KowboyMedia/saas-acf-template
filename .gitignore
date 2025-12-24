@@ -25,7 +25,6 @@ wp-config.php
 
 # Example plugin
 /wp-content/plugins/
-!/wp-content/plugins/kowboy_estates
 
 # Uploads
 /wp-content/uploads/
