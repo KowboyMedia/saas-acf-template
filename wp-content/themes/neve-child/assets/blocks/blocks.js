@@ -10,6 +10,9 @@
     var TextControl = components.TextControl;
     var Button = components.Button;
     var __ = i18n.__;
+    var ServerSideRender = window.wp.serverSideRender || ( components && components.ServerSideRender );
+    var TextareaControl = components.TextareaControl || TextControl;
+    var NumberControl = components.NumberControl || TextControl;
 
     blocks.registerBlockType( 'kowboy/cta-two-buttons', {
         title: __( 'CTA: Title, Text, Two Buttons', 'kowboy' ),
@@ -311,4 +314,375 @@
             );
         }
     } );
+
+    function registerAgentsListBlock() {
+        blocks.registerBlockType( 'kowboy/agents-list', {
+            title: __( 'Agents List', 'kowboy' ),
+            description: __( 'Displays the agents list.', 'kowboy' ),
+            icon: 'groups',
+            category: 'kowboy',
+            supports: {
+                align: true,
+                anchor: true
+            },
+            attributes: {
+                headline: { type: 'string', default: '' },
+                offices: { type: 'string', default: '' },
+                remoteids: { type: 'string', default: '' },
+                template: { type: 'string', default: '' },
+                ajax: { type: 'boolean', default: false },
+                ignoreDefaultWrapper: { type: 'boolean', default: false }
+            },
+            edit: function( props ) {
+                var attributes = props.attributes;
+                var setAttributes = props.setAttributes;
+                var blockProps = useBlockProps( { className: 'kowboy-dynamic-block' } );
+
+                return [
+                    el( InspectorControls, { key: 'agents-list-controls' },
+                        el( PanelBody, { title: __( 'Agents List Settings', 'kowboy' ), initialOpen: true },
+                            el( TextControl, {
+                                label: __( 'Headline', 'kowboy' ),
+                                value: attributes.headline,
+                                onChange: function( value ) {
+                                    setAttributes( { headline: value } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Offices (comma-separated)', 'kowboy' ),
+                                value: attributes.offices,
+                                onChange: function( value ) {
+                                    setAttributes( { offices: value } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Remote IDs (comma-separated)', 'kowboy' ),
+                                value: attributes.remoteids,
+                                onChange: function( value ) {
+                                    setAttributes( { remoteids: value } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Template Path', 'kowboy' ),
+                                value: attributes.template,
+                                onChange: function( value ) {
+                                    setAttributes( { template: value } );
+                                }
+                            } ),
+                            el( components.ToggleControl, {
+                                label: __( 'Use AJAX', 'kowboy' ),
+                                checked: attributes.ajax,
+                                onChange: function( value ) {
+                                    setAttributes( { ajax: value } );
+                                }
+                            } ),
+                            el( components.ToggleControl, {
+                                label: __( 'Ignore Default Wrapper', 'kowboy' ),
+                                checked: attributes.ignoreDefaultWrapper,
+                                onChange: function( value ) {
+                                    setAttributes( { ignoreDefaultWrapper: value } );
+                                }
+                            } )
+                        )
+                    ),
+                        el( 'section', blockProps,
+                        el( 'p', { className: 'kowboy-dynamic-block__label' }, __( 'Agents List Block', 'kowboy' ) ),
+                        ServerSideRender ? el( ServerSideRender, {
+                            block: 'kowboy/agents-list',
+                            attributes: attributes
+                        } ) : el( 'p', { className: 'kowboy-dynamic-block__hint' }, __( 'Preview unavailable in this editor.', 'kowboy' ) )
+                    )
+                ];
+            },
+            save: function() {
+                return null;
+            }
+        } );
+    }
+
+    function registerSearchPropertiesBlock() {
+        blocks.registerBlockType( 'kowboy/search-properties', {
+            title: __( 'Search Properties', 'kowboy' ),
+            description: __( 'Displays the property search results.', 'kowboy' ),
+            icon: 'search',
+            category: 'kowboy',
+            supports: {
+                align: true,
+                anchor: true
+            },
+            attributes: {
+                headline: { type: 'string', default: '' },
+                ajax: { type: 'boolean', default: false },
+                template: { type: 'string', default: '' },
+                statuses: { type: 'string', default: '' },
+                showStatusFilter: { type: 'boolean', default: false },
+                ignoreDefaultWrapper: { type: 'boolean', default: false },
+                perPage: { type: 'number', default: 10 },
+                filterTemplate: { type: 'string', default: '' }
+            },
+            edit: function( props ) {
+                var attributes = props.attributes;
+                var setAttributes = props.setAttributes;
+                var blockProps = useBlockProps( { className: 'kowboy-dynamic-block' } );
+
+                return [
+                    el( InspectorControls, { key: 'search-properties-controls' },
+                        el( PanelBody, { title: __( 'Search Properties Settings', 'kowboy' ), initialOpen: true },
+                            el( TextControl, {
+                                label: __( 'Headline', 'kowboy' ),
+                                value: attributes.headline,
+                                onChange: function( value ) {
+                                    setAttributes( { headline: value } );
+                                }
+                            } ),
+                            el( components.ToggleControl, {
+                                label: __( 'Use AJAX', 'kowboy' ),
+                                checked: attributes.ajax,
+                                onChange: function( value ) {
+                                    setAttributes( { ajax: value } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Template Path', 'kowboy' ),
+                                value: attributes.template,
+                                onChange: function( value ) {
+                                    setAttributes( { template: value } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Statuses (comma-separated)', 'kowboy' ),
+                                value: attributes.statuses,
+                                onChange: function( value ) {
+                                    setAttributes( { statuses: value } );
+                                }
+                            } ),
+                            el( components.ToggleControl, {
+                                label: __( 'Show Status Filter', 'kowboy' ),
+                                checked: attributes.showStatusFilter,
+                                onChange: function( value ) {
+                                    setAttributes( { showStatusFilter: value } );
+                                }
+                            } ),
+                            el( components.ToggleControl, {
+                                label: __( 'Ignore Default Wrapper', 'kowboy' ),
+                                checked: attributes.ignoreDefaultWrapper,
+                                onChange: function( value ) {
+                                    setAttributes( { ignoreDefaultWrapper: value } );
+                                }
+                            } ),
+                            el( NumberControl, {
+                                label: __( 'Per Page', 'kowboy' ),
+                                min: 1,
+                                value: attributes.perPage,
+                                onChange: function( value ) {
+                                    setAttributes( { perPage: parseInt( value, 10 ) || 10 } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Filter Template Path', 'kowboy' ),
+                                value: attributes.filterTemplate,
+                                onChange: function( value ) {
+                                    setAttributes( { filterTemplate: value } );
+                                }
+                            } )
+                        )
+                    ),
+                    el( 'section', blockProps,
+                        el( 'p', { className: 'kowboy-dynamic-block__label' }, __( 'Search Properties Block', 'kowboy' ) ),
+                        ServerSideRender ? el( ServerSideRender, {
+                            block: 'kowboy/search-properties',
+                            attributes: attributes
+                        } ) : el( 'p', { className: 'kowboy-dynamic-block__hint' }, __( 'Preview unavailable in this editor.', 'kowboy' ) )
+                    )
+                ];
+            },
+            save: function() {
+                return null;
+            }
+        } );
+    }
+
+    function registerSearchPropertiesPortraitBlock() {
+        blocks.registerBlockType( 'kowboy/search-properties-portrait', {
+            title: __( 'Search Properties (Portrait)', 'kowboy' ),
+            description: __( 'Displays the property search results with portrait images.', 'kowboy' ),
+            icon: 'format-image',
+            category: 'kowboy',
+            supports: {
+                align: true,
+                anchor: true
+            },
+            attributes: {
+                headline: { type: 'string', default: '' },
+                ajax: { type: 'boolean', default: false },
+                template: { type: 'string', default: 'templates/2025/list-item/property-list-item-portrait.php' },
+                statuses: { type: 'string', default: '' },
+                showStatusFilter: { type: 'boolean', default: false },
+                ignoreDefaultWrapper: { type: 'boolean', default: false },
+                perPage: { type: 'number', default: 10 },
+                filterTemplate: { type: 'string', default: '' }
+            },
+            edit: function( props ) {
+                var attributes = props.attributes;
+                var setAttributes = props.setAttributes;
+                var blockProps = useBlockProps( { className: 'kowboy-dynamic-block' } );
+
+                return [
+                    el( InspectorControls, { key: 'search-properties-portrait-controls' },
+                        el( PanelBody, { title: __( 'Search Properties (Portrait) Settings', 'kowboy' ), initialOpen: true },
+                            el( TextControl, {
+                                label: __( 'Headline', 'kowboy' ),
+                                value: attributes.headline,
+                                onChange: function( value ) {
+                                    setAttributes( { headline: value } );
+                                }
+                            } ),
+                            el( components.ToggleControl, {
+                                label: __( 'Use AJAX', 'kowboy' ),
+                                checked: attributes.ajax,
+                                onChange: function( value ) {
+                                    setAttributes( { ajax: value } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Template Path', 'kowboy' ),
+                                value: attributes.template,
+                                onChange: function( value ) {
+                                    setAttributes( { template: value } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Statuses (comma-separated)', 'kowboy' ),
+                                value: attributes.statuses,
+                                onChange: function( value ) {
+                                    setAttributes( { statuses: value } );
+                                }
+                            } ),
+                            el( components.ToggleControl, {
+                                label: __( 'Show Status Filter', 'kowboy' ),
+                                checked: attributes.showStatusFilter,
+                                onChange: function( value ) {
+                                    setAttributes( { showStatusFilter: value } );
+                                }
+                            } ),
+                            el( components.ToggleControl, {
+                                label: __( 'Ignore Default Wrapper', 'kowboy' ),
+                                checked: attributes.ignoreDefaultWrapper,
+                                onChange: function( value ) {
+                                    setAttributes( { ignoreDefaultWrapper: value } );
+                                }
+                            } ),
+                            el( NumberControl, {
+                                label: __( 'Per Page', 'kowboy' ),
+                                min: 1,
+                                value: attributes.perPage,
+                                onChange: function( value ) {
+                                    setAttributes( { perPage: parseInt( value, 10 ) || 10 } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Filter Template Path', 'kowboy' ),
+                                value: attributes.filterTemplate,
+                                onChange: function( value ) {
+                                    setAttributes( { filterTemplate: value } );
+                                }
+                            } )
+                        )
+                    ),
+                    el( 'section', blockProps,
+                        el( 'p', { className: 'kowboy-dynamic-block__label' }, __( 'Search Properties (Portrait) Block', 'kowboy' ) ),
+                        ServerSideRender ? el( ServerSideRender, {
+                            block: 'kowboy/search-properties-portrait',
+                            attributes: attributes
+                        } ) : el( 'p', { className: 'kowboy-dynamic-block__hint' }, __( 'Preview unavailable in this editor.', 'kowboy' ) )
+                    )
+                ];
+            },
+            save: function() {
+                return null;
+            }
+        } );
+    }
+
+    function registerFooterNewsletterBlock() {
+        blocks.registerBlockType( 'kowboy/footer-newsletter-form', {
+            title: __( 'Footer Newsletter Form', 'kowboy' ),
+            description: __( 'Displays the footer newsletter form.', 'kowboy' ),
+            icon: 'email',
+            category: 'kowboy',
+            supports: {
+                align: true,
+                anchor: true
+            },
+            attributes: {
+                heading: { type: 'string', default: 'Har du några frågor?' },
+                text: { type: 'string', default: 'Jag hjälper dig gärna med en kostnadsfri värdering.' },
+                backgroundImage: { type: 'string', default: '' },
+                leadReceiverId: { type: 'string', default: '' },
+                officeId: { type: 'string', default: '' }
+            },
+            edit: function( props ) {
+                var attributes = props.attributes;
+                var setAttributes = props.setAttributes;
+                var blockProps = useBlockProps( { className: 'kowboy-dynamic-block' } );
+
+                return [
+                    el( InspectorControls, { key: 'footer-newsletter-controls' },
+                        el( PanelBody, { title: __( 'Newsletter Settings', 'kowboy' ), initialOpen: true },
+                            el( TextControl, {
+                                label: __( 'Heading', 'kowboy' ),
+                                value: attributes.heading,
+                                onChange: function( value ) {
+                                    setAttributes( { heading: value } );
+                                }
+                            } ),
+                            el( TextareaControl, {
+                                label: __( 'Text', 'kowboy' ),
+                                value: attributes.text,
+                                onChange: function( value ) {
+                                    setAttributes( { text: value } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Background Image URL', 'kowboy' ),
+                                value: attributes.backgroundImage,
+                                onChange: function( value ) {
+                                    setAttributes( { backgroundImage: value } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Lead Receiver ID', 'kowboy' ),
+                                value: attributes.leadReceiverId,
+                                onChange: function( value ) {
+                                    setAttributes( { leadReceiverId: value } );
+                                }
+                            } ),
+                            el( TextControl, {
+                                label: __( 'Office ID', 'kowboy' ),
+                                value: attributes.officeId,
+                                onChange: function( value ) {
+                                    setAttributes( { officeId: value } );
+                                }
+                            } )
+                        )
+                    ),
+                    el( 'section', blockProps,
+                        el( 'p', { className: 'kowboy-dynamic-block__label' }, __( 'Footer Newsletter Form Block', 'kowboy' ) ),
+                        ServerSideRender ? el( ServerSideRender, {
+                            block: 'kowboy/footer-newsletter-form',
+                            attributes: attributes
+                        } ) : el( 'p', { className: 'kowboy-dynamic-block__hint' }, __( 'Preview unavailable in this editor.', 'kowboy' ) )
+                    )
+                ];
+            },
+            save: function() {
+                return null;
+            }
+        } );
+    }
+
+    registerAgentsListBlock();
+    registerSearchPropertiesBlock();
+    registerSearchPropertiesPortraitBlock();
+    registerFooterNewsletterBlock();
 } )( window.wp.blocks, window.wp.element, window.wp.blockEditor, window.wp.components, window.wp.i18n );

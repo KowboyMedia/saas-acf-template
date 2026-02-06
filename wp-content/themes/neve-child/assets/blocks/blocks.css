@@ -38,6 +38,7 @@
     color: #1f2937;
     font-size: 18px;
     line-height: 28px;
+    border-radius: 9999px;
 }
 .kowboy-hero-background-buttons__button:hover {
     background-color: #000000;

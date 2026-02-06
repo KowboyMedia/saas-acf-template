@@ -23,3 +23,105 @@ ul {
 .nv-content-wrap li {
     margin-top: 0;
 }
+
+/* Kowboy rounded UI (frontend only) */
+.kowboy-property-list-wrapper .btn,
+.kowboy-property-list-wrapper .property-filter-btn,
+.kowboy-property-filter .btn,
+.kowboy-property-filter input,
+.kowboy-property-filter select,
+.kowboy-property-filter textarea,
+.contact-form-section input,
+.contact-form-section select,
+.contact-form-section textarea,
+.contact-form-section button,
+.contact-form-section .contact-form-checkbox,
+.agents-list-item,
+.agent-card,
+.testimonial-card,
+.single-area-card,
+.single-office-card,
+.property-list .shadow-lg,
+.kowboy-property-filter button,
+.kowboy-property-filter .status-filter-items button,
+.status-filter-items button,
+.property-filter-btn,
+.load-more-button,
+.search-properties-list button,
+.search-properties-list .btn {
+    border-radius: 12px !important;
+}
+
+/* Portrait property cards */
+.kowboy-property-card-portrait .kowboy-portrait-media {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    position: relative;
+}
+
+.kowboy-property-card-portrait .kowboy-portrait-media a {
+    display: block;
+    height: 100%;
+}
+
+.kowboy-property-card-portrait .kowboy-portrait-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+/* Portrait list layout */
+.kowboy-portrait-section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+.kowboy-portrait-section .property-list .row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+}
+
+@media (max-width: 1100px) {
+    .kowboy-portrait-section .property-list .row {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .kowboy-portrait-section .property-list .row {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 640px) {
+    .kowboy-portrait-section .property-list .row {
+        grid-template-columns: 1fr;
+    }
+}
+
+.kowboy-property-card-portrait {
+    border-radius: 18px;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    background: #ffffff;
+}
+
+.kowboy-property-card-portrait .kowboy-portrait-card-body {
+    padding: 18px 18px 22px;
+    background: #f2e7df;
+}
+
+.kowboy-property-card-portrait .kowboy-portrait-title {
+    margin: 0 0 8px;
+    font-size: 20px;
+    line-height: 1.35;
+    color: #1f1f1f;
+    font-weight: 600;
+}
+
+.kowboy-property-card-portrait .kowboy-portrait-price {
+    margin: 0;
+    font-size: 16px;
+    color: #4b5563;
+    text-align: left;
+}

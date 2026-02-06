@@ -2,3 +2,46 @@
 .kowboy-hero-background-buttons {
     border: 1px dashed #c3c4c7;
 }
+
+.kowboy-dynamic-block {
+    border: 1px dashed #c3c4c7;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+.editor-styles-wrapper .kowboy-dynamic-block {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+.editor-styles-wrapper .kowboy-dynamic-block button,
+.editor-styles-wrapper .kowboy-dynamic-block .button,
+.editor-styles-wrapper .kowboy-dynamic-block input,
+.editor-styles-wrapper .kowboy-dynamic-block select,
+.editor-styles-wrapper .kowboy-dynamic-block textarea,
+.editor-styles-wrapper .kowboy-dynamic-block .card,
+.editor-styles-wrapper .kowboy-dynamic-block [class*="card"],
+.editor-styles-wrapper .kowboy-dynamic-block [class*="Card"] {
+    border-radius: 12px !important;
+}
+
+.editor-styles-wrapper .kowboy-cta-two-buttons__button,
+.editor-styles-wrapper .kowboy-hero-background-buttons__button {
+    border-radius: 9999px !important;
+}
+
+.kowboy-dynamic-block__label {
+    margin: 0 0 8px;
+    font-weight: 600;
+}
+
+.kowboy-dynamic-block__hint {
+    margin: 0;
+    color: #646970;
+    font-size: 12px;
+}
+
+.kowboy-dynamic-block .components-placeholder,
+.kowboy-dynamic-block .components-spinner {
+    margin-top: 12px;
+}
