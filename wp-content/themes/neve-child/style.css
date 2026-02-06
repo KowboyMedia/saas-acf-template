@@ -72,6 +72,8 @@ button.rounded-none,
 .kowboy-property-card-portrait .kowboy-portrait-media {
     aspect-ratio: 3 / 4;
     position: relative;
+    overflow: hidden;
+    border-radius: 18px 18px 0 0;
 }
 
 .kowboy-property-card-portrait .kowboy-portrait-media a {
@@ -84,6 +86,27 @@ button.rounded-none,
     height: 100%;
     object-fit: cover;
     display: block;
+    border-radius: 0;
+}
+
+/* Regular search properties: round top only for images */
+.property-list .shadow-lg .property-list-gallery,
+.property-list .shadow-lg .property-list-gallery .swiper,
+.property-list .shadow-lg .property-list-gallery .swiper-wrapper,
+.property-list .shadow-lg .property-list-gallery .swiper-slide {
+    border-radius: 18px 18px 0 0;
+    overflow: hidden;
+}
+
+/* Regular search properties card: square bottom image by removing wrapper bottom radius */
+.property-list .shadow-lg.rounded-lg {
+    border-radius: 18px !important;
+    overflow: hidden;
+}
+
+/* Ensure inner gallery only rounds top corners even if rounded-none is set */
+.property-list .shadow-lg .property-list-gallery.rounded-none {
+    border-radius: 18px 18px 0 0 !important;
 }
 
 /* Portrait list layout */
