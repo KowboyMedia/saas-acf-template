@@ -104,11 +104,19 @@ ul {
     border-radius: 18px;
     box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
     background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 .kowboy-property-card-portrait .kowboy-portrait-card-body {
     padding: 18px 18px 22px;
     background: #f2e7df;
+    margin: 0;
+    flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
 }
 
 .kowboy-property-card-portrait .kowboy-portrait-title {
