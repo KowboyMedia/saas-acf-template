@@ -167,14 +167,54 @@ if ( !function_exists( 'kowboy_render_footer_newsletter_block' ) ) :
             return '';
         }
 
-        $atts = array(
-            'heading' => isset( $attributes['heading'] ) ? $attributes['heading'] : 'Har du några frågor?',
-            'text' => isset( $attributes['text'] ) ? $attributes['text'] : 'Jag hjälper dig gärna med en kostnadsfri värdering.',
-            'background_image' => isset( $attributes['backgroundImage'] ) ? $attributes['backgroundImage'] : '',
-            'lead_receiver_id' => isset( $attributes['leadReceiverId'] ) ? $attributes['leadReceiverId'] : '',
-            'office_id' => isset( $attributes['officeId'] ) ? $attributes['officeId'] : '',
-        );
+        $heading = isset( $attributes['heading'] ) ? $attributes['heading'] : 'Har du några frågor?';
+        $text = isset( $attributes['text'] ) ? $attributes['text'] : 'Jag hjälper dig gärna med en kostnadsfri värdering.';
+        $background_image = isset( $attributes['backgroundImage'] ) ? $attributes['backgroundImage'] : '';
+        $office_id = isset( $attributes['officeId'] ) ? $attributes['officeId'] : '';
+        $lead_receiver_id = isset( $attributes['leadReceiverId'] ) ? $attributes['leadReceiverId'] : '';
 
-        return $GLOBALS['kowboy_2025_template']->render_footer_newsletter_form( $atts );
+        $is_editor_preview = is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST );
+
+        if ( $is_editor_preview && defined( 'KOWBOY_PLUGIN_DIR' ) ) {
+            $template_path = KOWBOY_PLUGIN_DIR . 'templates/2025/template-parts/contact-form.php';
+            if ( is_file( $template_path ) ) {
+                $attr = array(
+                    'office_id' => $office_id,
+                    'lead_receiver_id' => $lead_receiver_id,
+                    'background_image' => $background_image,
+                    'heading' => $heading,
+                    'text' => $text,
+                );
+                $kowboy_style_options = get_option( 'kowboy_options_colors' );
+                ob_start();
+                include $template_path;
+                return ob_get_clean();
+            }
+        }
+
+        if ( method_exists( $GLOBALS['kowboy_2025_template'], 'render_footer_newsletter_form' ) ) {
+            $atts = array(
+                'heading' => $heading,
+                'text' => $text,
+                'background_image' => $background_image,
+                'lead_receiver_id' => $lead_receiver_id,
+                'office_id' => $office_id,
+            );
+            return $GLOBALS['kowboy_2025_template']->render_footer_newsletter_form( $atts );
+        }
+
+        if ( method_exists( $GLOBALS['kowboy_2025_template'], 'render_lead_form' ) ) {
+            $atts = array(
+                'office_id' => $office_id,
+                'background_image' => $background_image,
+                'heading' => $heading,
+                'sub_heading' => $text,
+                'overlay' => 'true',
+                'text_color' => 'white',
+            );
+            return $GLOBALS['kowboy_2025_template']->render_lead_form( $atts );
+        }
+
+        return '';
     }
 endif;

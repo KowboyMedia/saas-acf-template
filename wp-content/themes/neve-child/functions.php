@@ -72,3 +72,82 @@ if ( !function_exists( 'kowboy_force_style_cache_bust' ) ) :
     }
 endif;
 add_filter( 'style_loader_src', 'kowboy_force_style_cache_bust', 20, 2 );
+
+if ( !function_exists( 'kowboy_frontend_rounding_inline' ) ) :
+    function kowboy_frontend_rounding_inline() {
+        if ( is_admin() ) {
+            return;
+        }
+
+        $css = '
+            .kowboy-property-list-wrapper .btn,
+            .kowboy-property-list-wrapper .property-filter-btn,
+            .kowboy-property-filter .btn,
+            .kowboy-property-filter input,
+            .kowboy-property-filter select,
+            .kowboy-property-filter textarea,
+            .contact-form-section input,
+            .contact-form-section select,
+            .contact-form-section textarea,
+            .contact-form-section button,
+            .contact-form-section .contact-form-checkbox,
+            .agents-list-item,
+            .agent-card,
+            .testimonial-card,
+            .single-area-card,
+            .single-office-card,
+            .property-list .shadow-lg,
+            .kowboy-property-filter button,
+            .kowboy-property-filter .status-filter-items button,
+            .status-filter-items button,
+            .property-filter-btn,
+            .load-more-button,
+            .search-properties-list button,
+            .search-properties-list .btn {
+                border-radius: 12px !important;
+            }
+        ';
+
+        wp_add_inline_style( 'chld_thm_cfg_child', $css );
+    }
+endif;
+add_action( 'wp_enqueue_scripts', 'kowboy_frontend_rounding_inline', 20 );
+
+if ( !function_exists( 'kowboy_frontend_rounding_head' ) ) :
+    function kowboy_frontend_rounding_head() {
+        if ( is_admin() ) {
+            return;
+        }
+        ?>
+        <style id="kowboy-frontend-rounded">
+            .kowboy-property-list-wrapper .btn,
+            .kowboy-property-list-wrapper .property-filter-btn,
+            .kowboy-property-filter .btn,
+            .kowboy-property-filter input,
+            .kowboy-property-filter select,
+            .kowboy-property-filter textarea,
+            .contact-form-section input,
+            .contact-form-section select,
+            .contact-form-section textarea,
+            .contact-form-section button,
+            .contact-form-section .contact-form-checkbox,
+            .agents-list-item,
+            .agent-card,
+            .testimonial-card,
+            .single-area-card,
+            .single-office-card,
+            .property-list .shadow-lg,
+            .kowboy-property-filter button,
+            .kowboy-property-filter .status-filter-items button,
+            .status-filter-items button,
+            .property-filter-btn,
+            .load-more-button,
+            .search-properties-list button,
+            .search-properties-list .btn {
+                border-radius: 12px !important;
+            }
+        </style>
+        <?php
+    }
+endif;
+add_action( 'wp_head', 'kowboy_frontend_rounding_head', 99 );

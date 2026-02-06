@@ -643,13 +643,27 @@
                                     setAttributes( { text: value } );
                                 }
                             } ),
-                            el( TextControl, {
-                                label: __( 'Background Image URL', 'kowboy' ),
-                                value: attributes.backgroundImage,
-                                onChange: function( value ) {
-                                    setAttributes( { backgroundImage: value } );
+                            el( MediaUploadCheck, null,
+                                el( MediaUpload, {
+                                    onSelect: function( media ) {
+                                        setAttributes( { backgroundImage: media.url } );
+                                    },
+                                    allowedTypes: [ 'image' ],
+                                    value: attributes.backgroundImage,
+                                    render: function( obj ) {
+                                        return el( Button, { onClick: obj.open, isSecondary: true },
+                                            attributes.backgroundImage ? __( 'Replace image', 'kowboy' ) : __( 'Select image', 'kowboy' )
+                                        );
+                                    }
+                                } )
+                            ),
+                            attributes.backgroundImage && el( Button, {
+                                isLink: true,
+                                isDestructive: true,
+                                onClick: function() {
+                                    setAttributes( { backgroundImage: '' } );
                                 }
-                            } ),
+                            }, __( 'Remove image', 'kowboy' ) ),
                             el( TextControl, {
                                 label: __( 'Lead Receiver ID', 'kowboy' ),
                                 value: attributes.leadReceiverId,

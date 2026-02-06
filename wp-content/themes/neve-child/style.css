@@ -52,10 +52,25 @@ ul {
     border-radius: 12px !important;
 }
 
+/* Override Tailwind rounded-none utilities in non-shadow DOM */
+.rounded-none,
+.rounded-none input,
+.rounded-none select,
+.rounded-none textarea,
+.rounded-none button,
+.rounded-none .btn,
+input.rounded-none,
+select.rounded-none,
+textarea.rounded-none,
+button.rounded-none,
+.btn.rounded-none,
+.property-filter-btn.rounded-none {
+    border-radius: 12px !important;
+}
+
 /* Portrait property cards */
 .kowboy-property-card-portrait .kowboy-portrait-media {
     aspect-ratio: 3 / 4;
-    overflow: hidden;
     position: relative;
 }
 
