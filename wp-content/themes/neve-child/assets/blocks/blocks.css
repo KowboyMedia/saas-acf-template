@@ -10,6 +10,7 @@
 
 .kowboy-hero-background-buttons__heading, .kowboy-hero-background-buttons__subheading {
     text-align: center;
+    text-shadow: 1px 1px 4px rgb(50 50 50);
 }
 .kowboy-hero-background-buttons__subheading {
     font-size: 24px;
@@ -54,6 +55,10 @@
     padding: 216px 20px 185px 20px;
 }
 
+.kowboy-hero-background-buttons--transparent-header {
+    margin-top: -88px;
+}
+
 .kowboy-hero-background-buttons::before {
     content: "";
     position: absolute;
@@ -65,9 +70,103 @@
     z-index: 1;
 }
 
+.kowboy-location-contact {
+    background: #f6f5f1;
+    padding: 48px 0;
+}
+
+.kowboy-location-contact__grid {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 48px;
+    align-items: start;
+}
+
+.kowboy-location-contact__map {
+    border-radius: 16px;
+    overflow: hidden;
+    min-height: 420px;
+    background: #e5e7eb;
+}
+
+.kowboy-location-contact__map iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    border: 0;
+}
+
+.kowboy-location-contact__map-placeholder {
+    height: 100%;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.kowboy-location-contact__content h2 {
+    margin: 0 0 16px;
+    font-size: 34px;
+    line-height: 1.2;
+    color: #1f2937;
+}
+
+.kowboy-location-contact__body {
+    color: #374151;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+.kowboy-location-contact__body p {
+    margin: 0 0 12px;
+}
+
+.kowboy-location-contact__contacts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid #d1d5db;
+}
+
+.kowboy-location-contact__contact {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 16px;
+}
+
+.kowboy-location-contact__label {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.kowboy-location-contact__contact a {
+    color: #1f2937;
+    text-decoration: underline;
+}
+
+@media (max-width: 1024px) {
+    .kowboy-location-contact__grid {
+        grid-template-columns: 1fr;
+    }
+    .kowboy-location-contact__contacts {
+        grid-template-columns: 1fr;
+    }
+}
+
 @media (max-width: 768px) {
     .kowboy-hero-background-buttons {
         padding: 100px 16px;
+    }
+    .kowboy-hero-background-buttons--transparent-header {
+        margin-top: -42px;
     }
     .kowboy-hero-background-buttons__subheading {
         font-size: 20px;

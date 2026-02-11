@@ -10,7 +10,16 @@ if ( !function_exists( 'kowboy_register_dynamic_blocks' ) ) :
 
         register_block_type( 'kowboy/agents-list', array(
             'render_callback' => 'kowboy_render_agents_list_block',
+            'supports' => array(
+                'align' => true,
+                'anchor' => true,
+                'spacing' => array(
+                    'margin' => true,
+                    'padding' => true,
+                ),
+            ),
             'attributes' => array(
+                'style' => array( 'type' => 'object' ),
                 'headline' => array( 'type' => 'string', 'default' => '' ),
                 'offices' => array( 'type' => 'string', 'default' => '' ),
                 'remoteids' => array( 'type' => 'string', 'default' => '' ),
@@ -22,7 +31,16 @@ if ( !function_exists( 'kowboy_register_dynamic_blocks' ) ) :
 
         register_block_type( 'kowboy/search-properties', array(
             'render_callback' => 'kowboy_render_search_properties_block',
+            'supports' => array(
+                'align' => true,
+                'anchor' => true,
+                'spacing' => array(
+                    'margin' => true,
+                    'padding' => true,
+                ),
+            ),
             'attributes' => array(
+                'style' => array( 'type' => 'object' ),
                 'headline' => array( 'type' => 'string', 'default' => '' ),
                 'ajax' => array( 'type' => 'boolean', 'default' => false ),
                 'template' => array( 'type' => 'string', 'default' => '' ),
@@ -36,7 +54,16 @@ if ( !function_exists( 'kowboy_register_dynamic_blocks' ) ) :
 
         register_block_type( 'kowboy/search-properties-portrait', array(
             'render_callback' => 'kowboy_render_search_properties_portrait_block',
+            'supports' => array(
+                'align' => true,
+                'anchor' => true,
+                'spacing' => array(
+                    'margin' => true,
+                    'padding' => true,
+                ),
+            ),
             'attributes' => array(
+                'style' => array( 'type' => 'object' ),
                 'headline' => array( 'type' => 'string', 'default' => '' ),
                 'ajax' => array( 'type' => 'boolean', 'default' => false ),
                 'template' => array( 'type' => 'string', 'default' => 'templates/2025/list-item/property-list-item-portrait.php' ),
@@ -50,7 +77,16 @@ if ( !function_exists( 'kowboy_register_dynamic_blocks' ) ) :
 
         register_block_type( 'kowboy/footer-newsletter-form', array(
             'render_callback' => 'kowboy_render_footer_newsletter_block',
+            'supports' => array(
+                'align' => true,
+                'anchor' => true,
+                'spacing' => array(
+                    'margin' => true,
+                    'padding' => true,
+                ),
+            ),
             'attributes' => array(
+                'style' => array( 'type' => 'object' ),
                 'heading' => array( 'type' => 'string', 'default' => 'Har du några frågor?' ),
                 'text' => array( 'type' => 'string', 'default' => 'Jag hjälper dig gärna med en kostnadsfri värdering.' ),
                 'backgroundImage' => array( 'type' => 'string', 'default' => '' ),
@@ -87,7 +123,8 @@ if ( !function_exists( 'kowboy_render_agents_list_block' ) ) :
             $output = '<h2 class="kowboy-block-headline">' . $headline . '</h2>' . $output;
         }
 
-        return $output;
+        $wrapper = function_exists( 'get_block_wrapper_attributes' ) ? get_block_wrapper_attributes() : '';
+        return '<div ' . $wrapper . '>' . $output . '</div>';
     }
 endif;
 
@@ -118,7 +155,8 @@ if ( !function_exists( 'kowboy_render_search_properties_block' ) ) :
             $output = '<h2 class="kowboy-block-headline">' . $headline . '</h2>' . $output;
         }
 
-        return $output;
+        $wrapper = function_exists( 'get_block_wrapper_attributes' ) ? get_block_wrapper_attributes() : '';
+        return '<div ' . $wrapper . '>' . $output . '</div>';
     }
 endif;
 
@@ -153,7 +191,8 @@ if ( !function_exists( 'kowboy_render_search_properties_portrait_block' ) ) :
             $output = '<h2 class="kowboy-block-headline">' . $headline . '</h2>' . $output;
         }
 
-        return '<div class="container kowboy-portrait-section">' . $output . '</div>';
+        $wrapper = function_exists( 'get_block_wrapper_attributes' ) ? get_block_wrapper_attributes() : '';
+        return '<div ' . $wrapper . '><div class="container kowboy-portrait-section">' . $output . '</div></div>';
     }
 endif;
 
@@ -172,6 +211,7 @@ if ( !function_exists( 'kowboy_render_footer_newsletter_block' ) ) :
         $background_image = isset( $attributes['backgroundImage'] ) ? $attributes['backgroundImage'] : '';
         $office_id = isset( $attributes['officeId'] ) ? $attributes['officeId'] : '';
         $lead_receiver_id = isset( $attributes['leadReceiverId'] ) ? $attributes['leadReceiverId'] : '';
+        $rounded_inputs = !empty( $attributes['roundedInputs'] );
 
         $is_editor_preview = is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST );
 
@@ -188,7 +228,14 @@ if ( !function_exists( 'kowboy_render_footer_newsletter_block' ) ) :
                 $kowboy_style_options = get_option( 'kowboy_options_colors' );
                 ob_start();
                 include $template_path;
-                return ob_get_clean();
+                $preview_html = ob_get_clean();
+
+                if ( $rounded_inputs ) {
+                    $preview_html = '<div class="kowboy-footer-newsletter-form--rounded">' . $preview_html . '</div>';
+                }
+
+                $wrapper = function_exists( 'get_block_wrapper_attributes' ) ? get_block_wrapper_attributes() : '';
+                return '<div ' . $wrapper . '>' . $preview_html . '</div>';
             }
         }
 
@@ -200,7 +247,12 @@ if ( !function_exists( 'kowboy_render_footer_newsletter_block' ) ) :
                 'lead_receiver_id' => $lead_receiver_id,
                 'office_id' => $office_id,
             );
-            return $GLOBALS['kowboy_2025_template']->render_footer_newsletter_form( $atts );
+            $html = $GLOBALS['kowboy_2025_template']->render_footer_newsletter_form( $atts );
+            if ( $rounded_inputs ) {
+                $html = '<div class="kowboy-footer-newsletter-form--rounded">' . $html . '</div>';
+            }
+            $wrapper = function_exists( 'get_block_wrapper_attributes' ) ? get_block_wrapper_attributes() : '';
+            return '<div ' . $wrapper . '>' . $html . '</div>';
         }
 
         if ( method_exists( $GLOBALS['kowboy_2025_template'], 'render_lead_form' ) ) {
@@ -212,7 +264,12 @@ if ( !function_exists( 'kowboy_render_footer_newsletter_block' ) ) :
                 'overlay' => 'true',
                 'text_color' => 'white',
             );
-            return $GLOBALS['kowboy_2025_template']->render_lead_form( $atts );
+            $html = $GLOBALS['kowboy_2025_template']->render_lead_form( $atts );
+            if ( $rounded_inputs ) {
+                $html = '<div class="kowboy-footer-newsletter-form--rounded">' . $html . '</div>';
+            }
+            $wrapper = function_exists( 'get_block_wrapper_attributes' ) ? get_block_wrapper_attributes() : '';
+            return '<div ' . $wrapper . '>' . $html . '</div>';
         }
 
         return '';

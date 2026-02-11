@@ -10,7 +10,9 @@ Version: 4.2.2.1766133239
 Updated: 2025-12-19 08:33:58
 
 */
-
+a:visited {
+    color: initial;
+}
 .container-fluid {
     padding: 0;
 }
@@ -170,4 +172,24 @@ button.rounded-none,
     font-size: 16px;
     color: #4b5563;
     text-align: left;
+}
+header {
+    z-index: 10;
+}
+
+kowboy-single-property {
+    top: -88px;
+}
+.kowboy-footer-newsletter-form--rounded input,
+.kowboy-footer-newsletter-form--rounded select,
+.kowboy-footer-newsletter-form--rounded textarea,
+.kowboy-footer-newsletter-form--rounded button,
+.kowboy-footer-newsletter-form--rounded .contact-form-checkbox,
+.kowboy-footer-newsletter-form--rounded .rounded-none,
+.kowboy-footer-newsletter-form--rounded input.rounded-none,
+.kowboy-footer-newsletter-form--rounded select.rounded-none,
+.kowboy-footer-newsletter-form--rounded textarea.rounded-none,
+.kowboy-footer-newsletter-form--rounded button.rounded-none,
+.kowboy-footer-newsletter-form--rounded .btn.rounded-none {
+    border-radius: 12px !important;
 }

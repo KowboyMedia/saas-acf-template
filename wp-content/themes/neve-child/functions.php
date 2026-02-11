@@ -34,6 +34,24 @@ require_once get_stylesheet_directory() . '/inc/gutenberg/blocks.php';
 require_once get_stylesheet_directory() . '/inc/acf/blocks.php';
 require_once get_stylesheet_directory() . '/inc/gutenberg/server-blocks.php';
 
+if ( !function_exists( 'kowboy_enqueue_shadow_rounding' ) ) :
+    function kowboy_enqueue_shadow_rounding() {
+        if ( is_admin() ) {
+            return;
+        }
+        $script_path = get_stylesheet_directory() . '/assets/js/kowboy-shadow-rounded.js';
+        $version = file_exists( $script_path ) ? filemtime( $script_path ) : '1.0.0';
+        wp_enqueue_script(
+            'kowboy-shadow-rounded',
+            get_stylesheet_directory_uri() . '/assets/js/kowboy-shadow-rounded.js',
+            array(),
+            $version,
+            true
+        );
+    }
+endif;
+add_action( 'wp_enqueue_scripts', 'kowboy_enqueue_shadow_rounding', 20 );
+
 if ( !function_exists( 'kowboy_child_setup_editor_styles' ) ) :
     function kowboy_child_setup_editor_styles() {
         add_theme_support( 'editor-styles' );

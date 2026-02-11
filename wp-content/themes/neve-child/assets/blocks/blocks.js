@@ -21,7 +21,11 @@
         category: 'kowboy',
         supports: {
             align: true,
-            anchor: true
+            anchor: true,
+            spacing: {
+                margin: true,
+                padding: true
+            }
         },
         attributes: {
             title: {
@@ -154,7 +158,11 @@
         category: 'kowboy',
         supports: {
             align: true,
-            anchor: true
+            anchor: true,
+            spacing: {
+                margin: true,
+                padding: true
+            }
         },
         attributes: {
             backgroundUrl: {
@@ -189,13 +197,21 @@
             secondaryUrl: {
                 type: 'string',
                 default: ''
+            },
+            transparentHeader: {
+                type: 'boolean',
+                default: false
             }
         },
         edit: function( props ) {
             var attributes = props.attributes;
             var setAttributes = props.setAttributes;
             var style = attributes.backgroundUrl ? { backgroundImage: 'url(' + attributes.backgroundUrl + ')' } : {};
-            var blockProps = useBlockProps( { className: 'kowboy-hero-background-buttons', style: style } );
+            var className = 'kowboy-hero-background-buttons';
+            if ( attributes.transparentHeader ) {
+                className += ' kowboy-hero-background-buttons--transparent-header';
+            }
+            var blockProps = useBlockProps( { className: className, style: style } );
 
             return [
                 el( InspectorControls, { key: 'hero-controls' },
@@ -252,6 +268,15 @@
                                 setAttributes( { secondaryUrl: url } );
                             }
                         } )
+                    ),
+                    el( PanelBody, { title: __( 'Header', 'kowboy' ), initialOpen: false },
+                        el( components.ToggleControl, {
+                            label: __( 'Transparent Header Mode', 'kowboy' ),
+                            checked: attributes.transparentHeader,
+                            onChange: function( value ) {
+                                setAttributes( { transparentHeader: value } );
+                            }
+                        } )
                     )
                 ),
                 el( 'section', blockProps,
@@ -286,7 +311,11 @@
         save: function( props ) {
             var attributes = props.attributes;
             var style = attributes.backgroundUrl ? { backgroundImage: 'url(' + attributes.backgroundUrl + ')' } : {};
-            var blockProps = blockEditor.useBlockProps.save( { className: 'kowboy-hero-background-buttons', style: style } );
+            var className = 'kowboy-hero-background-buttons';
+            if ( attributes.transparentHeader ) {
+                className += ' kowboy-hero-background-buttons--transparent-header';
+            }
+            var blockProps = blockEditor.useBlockProps.save( { className: className, style: style } );
 
             return el( 'section', blockProps,
                 el( 'div', { className: 'kowboy-hero-background-buttons__inner' },
@@ -323,7 +352,11 @@
             category: 'kowboy',
             supports: {
                 align: true,
-                anchor: true
+                anchor: true,
+                spacing: {
+                    margin: true,
+                    padding: true
+                }
             },
             attributes: {
                 headline: { type: 'string', default: '' },
@@ -408,7 +441,11 @@
             category: 'kowboy',
             supports: {
                 align: true,
-                anchor: true
+                anchor: true,
+                spacing: {
+                    margin: true,
+                    padding: true
+                }
             },
             attributes: {
                 headline: { type: 'string', default: '' },
@@ -510,7 +547,11 @@
             category: 'kowboy',
             supports: {
                 align: true,
-                anchor: true
+                anchor: true,
+                spacing: {
+                    margin: true,
+                    padding: true
+                }
             },
             attributes: {
                 headline: { type: 'string', default: '' },
@@ -612,14 +653,19 @@
             category: 'kowboy',
             supports: {
                 align: true,
-                anchor: true
+                anchor: true,
+                spacing: {
+                    margin: true,
+                    padding: true
+                }
             },
             attributes: {
                 heading: { type: 'string', default: 'Har du några frågor?' },
                 text: { type: 'string', default: 'Jag hjälper dig gärna med en kostnadsfri värdering.' },
                 backgroundImage: { type: 'string', default: '' },
                 leadReceiverId: { type: 'string', default: '' },
-                officeId: { type: 'string', default: '' }
+                officeId: { type: 'string', default: '' },
+                roundedInputs: { type: 'boolean', default: true }
             },
             edit: function( props ) {
                 var attributes = props.attributes;
@@ -677,6 +723,13 @@
                                 onChange: function( value ) {
                                     setAttributes( { officeId: value } );
                                 }
+                            } ),
+                            el( components.ToggleControl, {
+                                label: __( 'Rounded Inputs', 'kowboy' ),
+                                checked: attributes.roundedInputs,
+                                onChange: function( value ) {
+                                    setAttributes( { roundedInputs: value } );
+                                }
                             } )
                         )
                     ),
@@ -694,6 +747,166 @@
             }
         } );
     }
+
+    blocks.registerBlockType( 'kowboy/location-contact', {
+        title: __( 'Location + Contact', 'kowboy' ),
+        description: __( 'Two-column block with map and contact details.', 'kowboy' ),
+        icon: 'location-alt',
+        category: 'kowboy',
+        supports: {
+            align: true,
+            anchor: true,
+            spacing: {
+                margin: true,
+                padding: true
+            }
+        },
+        attributes: {
+            heading: { type: 'string', source: 'html', selector: 'h2' },
+            body: { type: 'string', source: 'html', selector: '.kowboy-location-contact__body' },
+            mapUrl: { type: 'string', default: '' },
+            emailLabel: { type: 'string', default: 'E-post' },
+            emailValue: { type: 'string', default: '' },
+            phoneLabel: { type: 'string', default: 'Mobil' },
+            phoneValue: { type: 'string', default: '' }
+        },
+        edit: function( props ) {
+            var attributes = props.attributes;
+            var setAttributes = props.setAttributes;
+            var blockProps = useBlockProps( { className: 'kowboy-location-contact' } );
+
+            return [
+                el( InspectorControls, { key: 'location-contact-controls' },
+                    el( PanelBody, { title: __( 'Map', 'kowboy' ), initialOpen: true },
+                        el( TextControl, {
+                            label: __( 'Google Maps Embed URL', 'kowboy' ),
+                            help: __( 'Paste the full embed URL (src from Google Maps iframe).', 'kowboy' ),
+                            value: attributes.mapUrl,
+                            onChange: function( value ) {
+                                setAttributes( { mapUrl: value } );
+                            }
+                        } )
+                    ),
+                    el( PanelBody, { title: __( 'Contact', 'kowboy' ), initialOpen: false },
+                        el( TextControl, {
+                            label: __( 'Email Label', 'kowboy' ),
+                            value: attributes.emailLabel,
+                            onChange: function( value ) {
+                                setAttributes( { emailLabel: value } );
+                            }
+                        } ),
+                        el( TextControl, {
+                            label: __( 'Email', 'kowboy' ),
+                            value: attributes.emailValue,
+                            onChange: function( value ) {
+                                setAttributes( { emailValue: value } );
+                            }
+                        } ),
+                        el( TextControl, {
+                            label: __( 'Phone Label', 'kowboy' ),
+                            value: attributes.phoneLabel,
+                            onChange: function( value ) {
+                                setAttributes( { phoneLabel: value } );
+                            }
+                        } ),
+                        el( TextControl, {
+                            label: __( 'Phone', 'kowboy' ),
+                            value: attributes.phoneValue,
+                            onChange: function( value ) {
+                                setAttributes( { phoneValue: value } );
+                            }
+                        } )
+                    )
+                ),
+                el( 'section', blockProps,
+                    el( 'div', { className: 'kowboy-location-contact__grid' },
+                        el( 'div', { className: 'kowboy-location-contact__map' },
+                            attributes.mapUrl
+                                ? el( 'iframe', {
+                                    src: attributes.mapUrl,
+                                    title: __( 'Map', 'kowboy' ),
+                                    allowFullScreen: true,
+                                    loading: 'lazy'
+                                } )
+                                : el( 'div', { className: 'kowboy-location-contact__map-placeholder' }, __( 'Add map embed URL in sidebar.', 'kowboy' ) )
+                        ),
+                        el( 'div', { className: 'kowboy-location-contact__content' },
+                            el( RichText, {
+                                tagName: 'h2',
+                                value: attributes.heading,
+                                placeholder: __( 'Add heading...', 'kowboy' ),
+                                onChange: function( value ) {
+                                    setAttributes( { heading: value } );
+                                }
+                            } ),
+                            el( RichText, {
+                                tagName: 'div',
+                                className: 'kowboy-location-contact__body',
+                                value: attributes.body,
+                                placeholder: __( 'Add description...', 'kowboy' ),
+                                multiline: 'p',
+                                onChange: function( value ) {
+                                    setAttributes( { body: value } );
+                                }
+                            } ),
+                            el( 'div', { className: 'kowboy-location-contact__contacts' },
+                                el( 'div', { className: 'kowboy-location-contact__contact' },
+                                    el( 'div', { className: 'kowboy-location-contact__label' }, attributes.emailLabel || __( 'E-post', 'kowboy' ) ),
+                                    attributes.emailValue
+                                        ? el( 'a', { href: 'mailto:' + attributes.emailValue }, attributes.emailValue )
+                                        : el( 'span', null, __( 'email@example.com', 'kowboy' ) )
+                                ),
+                                el( 'div', { className: 'kowboy-location-contact__contact' },
+                                    el( 'div', { className: 'kowboy-location-contact__label' }, attributes.phoneLabel || __( 'Mobil', 'kowboy' ) ),
+                                    attributes.phoneValue
+                                        ? el( 'a', { href: 'tel:' + attributes.phoneValue }, attributes.phoneValue )
+                                        : el( 'span', null, __( '0700000000', 'kowboy' ) )
+                                )
+                            )
+                        )
+                    )
+                )
+            ];
+        },
+        save: function( props ) {
+            var attributes = props.attributes;
+            var blockProps = blockEditor.useBlockProps.save( { className: 'kowboy-location-contact' } );
+
+            return el( 'section', blockProps,
+                el( 'div', { className: 'kowboy-location-contact__grid' },
+                    el( 'div', { className: 'kowboy-location-contact__map' },
+                        attributes.mapUrl && el( 'iframe', {
+                            src: attributes.mapUrl,
+                            title: __( 'Map', 'kowboy' ),
+                            allowFullScreen: true,
+                            loading: 'lazy'
+                        } )
+                    ),
+                    el( 'div', { className: 'kowboy-location-contact__content' },
+                        attributes.heading && el( RichText.Content, {
+                            tagName: 'h2',
+                            value: attributes.heading
+                        } ),
+                        attributes.body && el( RichText.Content, {
+                            tagName: 'div',
+                            className: 'kowboy-location-contact__body',
+                            value: attributes.body
+                        } ),
+                        el( 'div', { className: 'kowboy-location-contact__contacts' },
+                            el( 'div', { className: 'kowboy-location-contact__contact' },
+                                el( 'div', { className: 'kowboy-location-contact__label' }, attributes.emailLabel || __( 'E-post', 'kowboy' ) ),
+                                attributes.emailValue && el( 'a', { href: 'mailto:' + attributes.emailValue }, attributes.emailValue )
+                            ),
+                            el( 'div', { className: 'kowboy-location-contact__contact' },
+                                el( 'div', { className: 'kowboy-location-contact__label' }, attributes.phoneLabel || __( 'Mobil', 'kowboy' ) ),
+                                attributes.phoneValue && el( 'a', { href: 'tel:' + attributes.phoneValue }, attributes.phoneValue )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    } );
 
     registerAgentsListBlock();
     registerSearchPropertiesBlock();
