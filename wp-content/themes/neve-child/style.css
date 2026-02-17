@@ -33,11 +33,12 @@ ul {
 .kowboy-property-filter input,
 .kowboy-property-filter select,
 .kowboy-property-filter textarea,
-.contact-form-section input,
+.contact-form-section input[type="text"],
+.contact-form-section input[type="email"],
+.contact-form-section input[type="tel"],
 .contact-form-section select,
 .contact-form-section textarea,
 .contact-form-section button,
-.contact-form-section .contact-form-checkbox,
 .agents-list-item,
 .agent-card,
 .testimonial-card,
@@ -55,13 +56,10 @@ ul {
 }
 
 /* Override Tailwind rounded-none utilities in non-shadow DOM */
-.rounded-none,
 .rounded-none input,
 .rounded-none select,
 .rounded-none textarea,
 .rounded-none button,
-.rounded-none .btn,
-input.rounded-none,
 select.rounded-none,
 textarea.rounded-none,
 button.rounded-none,
@@ -96,19 +94,19 @@ button.rounded-none,
 .property-list .shadow-lg .property-list-gallery .swiper,
 .property-list .shadow-lg .property-list-gallery .swiper-wrapper,
 .property-list .shadow-lg .property-list-gallery .swiper-slide {
-    border-radius: 18px 18px 0 0;
+    border-radius: 12px 12px 0 0;
     overflow: hidden;
 }
 
 /* Regular search properties card: square bottom image by removing wrapper bottom radius */
 .property-list .shadow-lg.rounded-lg {
-    border-radius: 18px !important;
+    border-radius: 12px !important;
     overflow: hidden;
 }
 
 /* Ensure inner gallery only rounds top corners even if rounded-none is set */
 .property-list .shadow-lg .property-list-gallery.rounded-none {
-    border-radius: 18px 18px 0 0 !important;
+    border-radius: 12px 12px 0 0 !important;
 }
 
 /* Portrait list layout */
@@ -185,8 +183,6 @@ kowboy-single-property {
 .kowboy-footer-newsletter-form--rounded textarea,
 .kowboy-footer-newsletter-form--rounded button,
 .kowboy-footer-newsletter-form--rounded .contact-form-checkbox,
-.kowboy-footer-newsletter-form--rounded .rounded-none,
-.kowboy-footer-newsletter-form--rounded input.rounded-none,
 .kowboy-footer-newsletter-form--rounded select.rounded-none,
 .kowboy-footer-newsletter-form--rounded textarea.rounded-none,
 .kowboy-footer-newsletter-form--rounded button.rounded-none,

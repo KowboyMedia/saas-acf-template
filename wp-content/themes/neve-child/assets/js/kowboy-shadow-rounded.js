@@ -1,18 +1,16 @@
 (() => {
   const STYLE_ID = 'kowboy-rounded-override';
   const CSS = `
-    .contact-form-section input,
+    .contact-form-section input[type="text"],
+    .contact-form-section input[type="email"],
+    .contact-form-section input[type="tel"],
     .contact-form-section select,
     .contact-form-section textarea,
     .contact-form-section button,
-    .contact-form-section .contact-form-checkbox,
-    .rounded-none,
     .rounded-none input,
     .rounded-none select,
     .rounded-none textarea,
     .rounded-none button,
-    .rounded-none .btn,
-    input.rounded-none,
     select.rounded-none,
     textarea.rounded-none,
     button.rounded-none,
