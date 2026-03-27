@@ -7,7 +7,9 @@
     max-width: 1170px;
     margin: 0 auto;
 }
-
+.kowboy-hero-background-buttons__heading {
+    margin-bottom: 20px;
+}
 .kowboy-hero-background-buttons__heading, .kowboy-hero-background-buttons__subheading {
     text-align: center;
     text-shadow: 1px 1px 4px rgb(50 50 50);
@@ -24,7 +26,7 @@
 .kowboy-hero-background-buttons__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 20px;
     margin-top: 24px;
 }
 
