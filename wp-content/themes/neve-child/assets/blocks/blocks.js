@@ -374,6 +374,179 @@
         }
     } );
 
+    blocks.registerBlockType( 'kowboy/fullscreen-slideshow', {
+        title: __( 'Slideshow: Full Width + Full Height', 'kowboy' ),
+        description: __( 'Fullscreen slideshow for homepage hero sections.', 'kowboy' ),
+        icon: 'images-alt2',
+        category: 'kowboy',
+        supports: {
+            align: true,
+            anchor: true
+        },
+        attributes: {
+            slides: {
+                type: 'array',
+                default: []
+            },
+            autoplay: {
+                type: 'boolean',
+                default: true
+            },
+            interval: {
+                type: 'number',
+                default: 5000
+            },
+            overlay: {
+                type: 'boolean',
+                default: true
+            }
+        },
+        edit: function( props ) {
+            var attributes = props.attributes;
+            var setAttributes = props.setAttributes;
+            var slides = Array.isArray( attributes.slides ) ? attributes.slides : [];
+            var className = 'kowboy-fullscreen-slideshow';
+
+            if ( attributes.overlay ) {
+                className += ' kowboy-fullscreen-slideshow--overlay';
+            }
+
+            var blockProps = useBlockProps( { className: className } );
+
+            return [
+                el( InspectorControls, { key: 'fullscreen-slideshow-controls' },
+                    el( PanelBody, { title: __( 'Slideshow Settings', 'kowboy' ), initialOpen: true },
+                        el( components.ToggleControl, {
+                            label: __( 'Autoplay', 'kowboy' ),
+                            checked: attributes.autoplay,
+                            onChange: function( value ) {
+                                setAttributes( { autoplay: value } );
+                            }
+                        } ),
+                        el( NumberControl, {
+                            label: __( 'Slide Duration (ms)', 'kowboy' ),
+                            min: 1000,
+                            step: 500,
+                            value: attributes.interval || 5000,
+                            onChange: function( value ) {
+                                var parsed = parseInt( value, 10 );
+                                setAttributes( { interval: parsed >= 1000 ? parsed : 5000 } );
+                            }
+                        } ),
+                        el( components.ToggleControl, {
+                            label: __( 'Dark Overlay', 'kowboy' ),
+                            checked: attributes.overlay,
+                            onChange: function( value ) {
+                                setAttributes( { overlay: value } );
+                            }
+                        } )
+                    )
+                ),
+                el( 'section', blockProps,
+                    el( 'div', { className: 'kowboy-fullscreen-slideshow__media-controls' },
+                        el( MediaUploadCheck, null,
+                            el( MediaUpload, {
+                                onSelect: function( mediaItems ) {
+                                    var items = Array.isArray( mediaItems ) ? mediaItems : ( mediaItems ? [ mediaItems ] : [] );
+                                    var normalized = items.map( function( item ) {
+                                        return {
+                                            id: item.id,
+                                            url: item.url,
+                                            alt: item.alt || ''
+                                        };
+                                    } );
+
+                                    setAttributes( { slides: normalized } );
+                                },
+                                allowedTypes: [ 'image' ],
+                                multiple: true,
+                                gallery: true,
+                                value: slides.map( function( item ) { return item.id; } ),
+                                render: function( obj ) {
+                                    return el( Button, { onClick: obj.open, isSecondary: true },
+                                        slides.length ? __( 'Replace Slides', 'kowboy' ) : __( 'Select Slides', 'kowboy' )
+                                    );
+                                }
+                            } )
+                        ),
+                        slides.length > 0 && el( Button, {
+                            isLink: true,
+                            isDestructive: true,
+                            onClick: function() {
+                                setAttributes( { slides: [] } );
+                            }
+                        }, __( 'Remove all slides', 'kowboy' ) )
+                    ),
+                    slides.length > 0
+                        ? el( 'div', { className: 'kowboy-fullscreen-slideshow__track' },
+                            slides.map( function( slide, index ) {
+                                return el( 'div', {
+                                    key: slide.id || index,
+                                    className: 'kowboy-fullscreen-slideshow__slide' + ( index === 0 ? ' is-active' : '' ),
+                                    style: { backgroundImage: 'url(' + slide.url + ')' }
+                                } );
+                            } )
+                        )
+                        : el( 'div', { className: 'kowboy-fullscreen-slideshow__empty' }, __( 'Select images to create the slideshow.', 'kowboy' ) ),
+                    slides.length > 0 && attributes.overlay && el( 'div', { className: 'kowboy-fullscreen-slideshow__overlay' } ),
+                    slides.length > 1 && el( 'div', { className: 'kowboy-fullscreen-slideshow__dots' },
+                        slides.map( function( slide, index ) {
+                            return el( 'span', {
+                                key: 'dot-' + ( slide.id || index ),
+                                className: 'kowboy-fullscreen-slideshow__dot' + ( index === 0 ? ' is-active' : '' )
+                            } );
+                        } )
+                    )
+                )
+            ];
+        },
+        save: function( props ) {
+            var attributes = props.attributes;
+            var slides = Array.isArray( attributes.slides ) ? attributes.slides : [];
+
+            if ( slides.length === 0 ) {
+                return null;
+            }
+
+            var className = 'kowboy-fullscreen-slideshow';
+            if ( attributes.overlay ) {
+                className += ' kowboy-fullscreen-slideshow--overlay';
+            }
+
+            var blockProps = blockEditor.useBlockProps.save( {
+                className: className,
+                'data-autoplay': attributes.autoplay ? 'true' : 'false',
+                'data-interval': attributes.interval || 5000
+            } );
+
+            return el( 'section', blockProps,
+                el( 'div', { className: 'kowboy-fullscreen-slideshow__track' },
+                    slides.map( function( slide, index ) {
+                        return el( 'div', {
+                            key: slide.id || index,
+                            className: 'kowboy-fullscreen-slideshow__slide' + ( index === 0 ? ' is-active' : '' ),
+                            style: { backgroundImage: 'url(' + slide.url + ')' },
+                            role: 'img',
+                            'aria-label': slide.alt || __( 'Slideshow image', 'kowboy' )
+                        } );
+                    } )
+                ),
+                attributes.overlay && el( 'div', { className: 'kowboy-fullscreen-slideshow__overlay' } ),
+                slides.length > 1 && el( 'div', { className: 'kowboy-fullscreen-slideshow__dots' },
+                    slides.map( function( slide, index ) {
+                        return el( 'button', {
+                            key: 'dot-' + ( slide.id || index ),
+                            type: 'button',
+                            className: 'kowboy-fullscreen-slideshow__dot' + ( index === 0 ? ' is-active' : '' ),
+                            'data-slide-index': index,
+                            'aria-label': __( 'Go to slide', 'kowboy' ) + ' ' + ( index + 1 )
+                        } );
+                    } )
+                )
+            );
+        }
+    } );
+
     function registerAgentsListBlock() {
         blocks.registerBlockType( 'kowboy/agents-list', {
             title: __( 'Agents List', 'kowboy' ),
