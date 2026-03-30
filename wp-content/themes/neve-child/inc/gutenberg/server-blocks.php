@@ -92,6 +92,7 @@ if ( !function_exists( 'kowboy_register_dynamic_blocks' ) ) :
                 'backgroundImage' => array( 'type' => 'string', 'default' => '' ),
                 'leadReceiverId' => array( 'type' => 'string', 'default' => '' ),
                 'officeId' => array( 'type' => 'string', 'default' => '' ),
+                'roundedInputs' => array( 'type' => 'boolean', 'default' => true ),
             ),
         ) );
     }
