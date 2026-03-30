@@ -695,7 +695,9 @@
                 backgroundImage: { type: 'string', default: '' },
                 leadReceiverId: { type: 'string', default: '' },
                 officeId: { type: 'string', default: '' },
-                roundedInputs: { type: 'boolean', default: true }
+                roundedInputs: { type: 'boolean', default: true },
+                showOverlay: { type: 'boolean', default: true },
+                textColor: { type: 'string', default: 'white' }
             },
             edit: function( props ) {
                 var attributes = props.attributes;
@@ -759,6 +761,24 @@
                                 checked: attributes.roundedInputs,
                                 onChange: function( value ) {
                                     setAttributes( { roundedInputs: value } );
+                                }
+                            } ),
+                            el( components.ToggleControl, {
+                                label: __( 'Overlay', 'kowboy' ),
+                                checked: attributes.showOverlay,
+                                onChange: function( value ) {
+                                    setAttributes( { showOverlay: value } );
+                                }
+                            } ),
+                            el( components.SelectControl, {
+                                label: __( 'Text Color', 'kowboy' ),
+                                value: attributes.textColor || 'white',
+                                options: [
+                                    { label: __( 'White', 'kowboy' ), value: 'white' },
+                                    { label: __( 'Black', 'kowboy' ), value: 'black' }
+                                ],
+                                onChange: function( value ) {
+                                    setAttributes( { textColor: value } );
                                 }
                             } )
                         )

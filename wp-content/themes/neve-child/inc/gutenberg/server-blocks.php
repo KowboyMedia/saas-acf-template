@@ -93,6 +93,8 @@ if ( !function_exists( 'kowboy_register_dynamic_blocks' ) ) :
                 'leadReceiverId' => array( 'type' => 'string', 'default' => '' ),
                 'officeId' => array( 'type' => 'string', 'default' => '' ),
                 'roundedInputs' => array( 'type' => 'boolean', 'default' => true ),
+                'showOverlay' => array( 'type' => 'boolean', 'default' => true ),
+                'textColor' => array( 'type' => 'string', 'default' => 'white' ),
             ),
         ) );
     }
@@ -213,6 +215,8 @@ if ( !function_exists( 'kowboy_render_footer_newsletter_block' ) ) :
         $office_id = isset( $attributes['officeId'] ) ? $attributes['officeId'] : '';
         $lead_receiver_id = isset( $attributes['leadReceiverId'] ) ? $attributes['leadReceiverId'] : '';
         $rounded_inputs = !empty( $attributes['roundedInputs'] );
+        $show_overlay = !array_key_exists( 'showOverlay', $attributes ) || !empty( $attributes['showOverlay'] );
+        $text_color = isset( $attributes['textColor'] ) && $attributes['textColor'] === 'black' ? 'black' : 'white';
 
         $is_editor_preview = is_admin() || ( defined( 'REST_REQUEST' ) && REST_REQUEST );
 
@@ -225,6 +229,8 @@ if ( !function_exists( 'kowboy_render_footer_newsletter_block' ) ) :
                     'background_image' => $background_image,
                     'heading' => $heading,
                     'text' => $text,
+                    'overlay' => $show_overlay ? 'true' : 'false',
+                    'text_color' => $text_color,
                 );
                 $kowboy_style_options = get_option( 'kowboy_options_colors' );
                 ob_start();
@@ -247,6 +253,8 @@ if ( !function_exists( 'kowboy_render_footer_newsletter_block' ) ) :
                 'background_image' => $background_image,
                 'lead_receiver_id' => $lead_receiver_id,
                 'office_id' => $office_id,
+                'overlay' => $show_overlay ? 'true' : 'false',
+                'text_color' => $text_color,
             );
             $html = $GLOBALS['kowboy_2025_template']->render_footer_newsletter_form( $atts );
             if ( $rounded_inputs ) {
@@ -262,8 +270,8 @@ if ( !function_exists( 'kowboy_render_footer_newsletter_block' ) ) :
                 'background_image' => $background_image,
                 'heading' => $heading,
                 'sub_heading' => $text,
-                'overlay' => 'true',
-                'text_color' => 'white',
+                'overlay' => $show_overlay ? 'true' : 'false',
+                'text_color' => $text_color,
             );
             $html = $GLOBALS['kowboy_2025_template']->render_lead_form( $atts );
             if ( $rounded_inputs ) {
