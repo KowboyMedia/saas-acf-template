@@ -172,6 +172,10 @@
             backgroundId: {
                 type: 'number'
             },
+            backgroundPosition: {
+                type: 'string',
+                default: 'top center'
+            },
             heading: {
                 type: 'string',
                 source: 'html',
@@ -206,7 +210,11 @@
         edit: function( props ) {
             var attributes = props.attributes;
             var setAttributes = props.setAttributes;
-            var style = attributes.backgroundUrl ? { backgroundImage: 'url(' + attributes.backgroundUrl + ')' } : {};
+            var style = {};
+            if ( attributes.backgroundUrl ) {
+                style.backgroundImage = 'url(' + attributes.backgroundUrl + ')';
+            }
+            style.backgroundPosition = attributes.backgroundPosition || 'top center';
             var className = 'kowboy-hero-background-buttons';
             if ( attributes.transparentHeader ) {
                 className += ' kowboy-hero-background-buttons--transparent-header';
@@ -239,7 +247,25 @@
                             onClick: function() {
                                 setAttributes( { backgroundUrl: '', backgroundId: null } );
                             }
-                        }, __( 'Remove image', 'kowboy' ) )
+                        }, __( 'Remove image', 'kowboy' ) ),
+                        el( components.SelectControl, {
+                            label: __( 'Background Position', 'kowboy' ),
+                            value: attributes.backgroundPosition || 'top center',
+                            options: [
+                                { label: __( 'Top Left', 'kowboy' ), value: 'top left' },
+                                { label: __( 'Top Center', 'kowboy' ), value: 'top center' },
+                                { label: __( 'Top Right', 'kowboy' ), value: 'top right' },
+                                { label: __( 'Center Left', 'kowboy' ), value: 'center left' },
+                                { label: __( 'Center Center', 'kowboy' ), value: 'center center' },
+                                { label: __( 'Center Right', 'kowboy' ), value: 'center right' },
+                                { label: __( 'Bottom Left', 'kowboy' ), value: 'bottom left' },
+                                { label: __( 'Bottom Center', 'kowboy' ), value: 'bottom center' },
+                                { label: __( 'Bottom Right', 'kowboy' ), value: 'bottom right' }
+                            ],
+                            onChange: function( value ) {
+                                setAttributes( { backgroundPosition: value } );
+                            }
+                        } )
                     ),
                     el( PanelBody, { title: __( 'Buttons', 'kowboy' ), initialOpen: false },
                         el( TextControl, {
@@ -301,8 +327,8 @@
                             }
                         } ),
                         el( 'div', { className: 'kowboy-hero-background-buttons__actions' },
-                            el( Button, { className: 'kowboy-hero-background-buttons__button kowboy-hero-background-buttons__button--primary', isSecondary: true }, attributes.primaryLabel || __( 'Primary', 'kowboy' ) ),
-                            el( Button, { className: 'kowboy-hero-background-buttons__button kowboy-hero-background-buttons__button--secondary', isSecondary: true }, attributes.secondaryLabel || __( 'Secondary', 'kowboy' ) )
+                            el( 'span', { className: 'kowboy-hero-background-buttons__button kowboy-hero-background-buttons__button--primary' }, attributes.primaryLabel || __( 'Primary', 'kowboy' ) ),
+                            el( 'span', { className: 'kowboy-hero-background-buttons__button kowboy-hero-background-buttons__button--secondary' }, attributes.secondaryLabel || __( 'Secondary', 'kowboy' ) )
                         )
                     )
                 )
@@ -310,7 +336,11 @@
         },
         save: function( props ) {
             var attributes = props.attributes;
-            var style = attributes.backgroundUrl ? { backgroundImage: 'url(' + attributes.backgroundUrl + ')' } : {};
+            var style = {};
+            if ( attributes.backgroundUrl ) {
+                style.backgroundImage = 'url(' + attributes.backgroundUrl + ')';
+            }
+            style.backgroundPosition = attributes.backgroundPosition || 'top center';
             var className = 'kowboy-hero-background-buttons';
             if ( attributes.transparentHeader ) {
                 className += ' kowboy-hero-background-buttons--transparent-header';
