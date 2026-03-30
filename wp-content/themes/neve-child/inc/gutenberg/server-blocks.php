@@ -48,7 +48,7 @@ if ( !function_exists( 'kowboy_register_dynamic_blocks' ) ) :
                 'showStatusFilter' => array( 'type' => 'boolean', 'default' => false ),
                 'ignoreDefaultWrapper' => array( 'type' => 'boolean', 'default' => false ),
                 'perPage' => array( 'type' => 'number', 'default' => 10 ),
-                'filterTemplate' => array( 'type' => 'string', 'default' => '' ),
+                'filterTemplate' => array( 'type' => 'string', 'default' => 'templates/filters/property-search-filter.php' ),
             ),
         ) );
 
@@ -148,7 +148,7 @@ if ( !function_exists( 'kowboy_render_search_properties_block' ) ) :
             'show_status_filter' => !empty( $attributes['showStatusFilter'] ),
             'ignore-default-wrapper' => !empty( $attributes['ignoreDefaultWrapper'] ),
             'per_page' => isset( $attributes['perPage'] ) ? intval( $attributes['perPage'] ) : 10,
-            'filter_template' => isset( $attributes['filterTemplate'] ) ? $attributes['filterTemplate'] : '',
+            'filter_template' => isset( $attributes['filterTemplate'] ) ? $attributes['filterTemplate'] : 'templates/filters/property-search-filter.php',
         );
 
         $output = $GLOBALS['kowboy_search_shortcode']->search_properties_callback( $atts );

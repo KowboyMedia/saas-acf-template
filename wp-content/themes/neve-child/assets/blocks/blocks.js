@@ -658,7 +658,7 @@
                 showStatusFilter: { type: 'boolean', default: false },
                 ignoreDefaultWrapper: { type: 'boolean', default: false },
                 perPage: { type: 'number', default: 10 },
-                filterTemplate: { type: 'string', default: '' }
+                filterTemplate: { type: 'string', default: 'templates/filters/property-search-filter.php' }
             },
             edit: function( props ) {
                 var attributes = props.attributes;
