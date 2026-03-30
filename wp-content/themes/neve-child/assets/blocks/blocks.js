@@ -774,6 +774,13 @@
             var attributes = props.attributes;
             var setAttributes = props.setAttributes;
             var blockProps = useBlockProps( { className: 'kowboy-location-contact' } );
+            var hasMap = !!( attributes.mapUrl && attributes.mapUrl.trim() );
+            var hasEmail = !!( attributes.emailValue && attributes.emailValue.trim() );
+            var hasPhone = !!( attributes.phoneValue && attributes.phoneValue.trim() );
+            var hasContacts = hasEmail || hasPhone;
+            var gridClassName = hasMap
+                ? 'kowboy-location-contact__grid'
+                : 'kowboy-location-contact__grid kowboy-location-contact__grid--no-map';
 
             return [
                 el( InspectorControls, { key: 'location-contact-controls' },
@@ -819,16 +826,14 @@
                     )
                 ),
                 el( 'section', blockProps,
-                    el( 'div', { className: 'kowboy-location-contact__grid' },
-                        el( 'div', { className: 'kowboy-location-contact__map' },
-                            attributes.mapUrl
-                                ? el( 'iframe', {
-                                    src: attributes.mapUrl,
-                                    title: __( 'Map', 'kowboy' ),
-                                    allowFullScreen: true,
-                                    loading: 'lazy'
-                                } )
-                                : el( 'div', { className: 'kowboy-location-contact__map-placeholder' }, __( 'Add map embed URL in sidebar.', 'kowboy' ) )
+                    el( 'div', { className: gridClassName },
+                        hasMap && el( 'div', { className: 'kowboy-location-contact__map' },
+                            el( 'iframe', {
+                                src: attributes.mapUrl,
+                                title: __( 'Map', 'kowboy' ),
+                                allowFullScreen: true,
+                                loading: 'lazy'
+                            } )
                         ),
                         el( 'div', { className: 'kowboy-location-contact__content' },
                             el( RichText, {
@@ -849,18 +854,14 @@
                                     setAttributes( { body: value } );
                                 }
                             } ),
-                            el( 'div', { className: 'kowboy-location-contact__contacts' },
-                                el( 'div', { className: 'kowboy-location-contact__contact' },
+                            hasContacts && el( 'div', { className: 'kowboy-location-contact__contacts' },
+                                hasEmail && el( 'div', { className: 'kowboy-location-contact__contact' },
                                     el( 'div', { className: 'kowboy-location-contact__label' }, attributes.emailLabel || __( 'E-post', 'kowboy' ) ),
-                                    attributes.emailValue
-                                        ? el( 'a', { href: 'mailto:' + attributes.emailValue }, attributes.emailValue )
-                                        : el( 'span', null, __( 'email@example.com', 'kowboy' ) )
+                                    el( 'a', { href: 'mailto:' + attributes.emailValue }, attributes.emailValue )
                                 ),
-                                el( 'div', { className: 'kowboy-location-contact__contact' },
+                                hasPhone && el( 'div', { className: 'kowboy-location-contact__contact' },
                                     el( 'div', { className: 'kowboy-location-contact__label' }, attributes.phoneLabel || __( 'Mobil', 'kowboy' ) ),
-                                    attributes.phoneValue
-                                        ? el( 'a', { href: 'tel:' + attributes.phoneValue }, attributes.phoneValue )
-                                        : el( 'span', null, __( '0700000000', 'kowboy' ) )
+                                    el( 'a', { href: 'tel:' + attributes.phoneValue }, attributes.phoneValue )
                                 )
                             )
                         )
@@ -870,12 +871,26 @@
         },
         save: function( props ) {
             var attributes = props.attributes;
+            var hasMap = !!( attributes.mapUrl && attributes.mapUrl.trim() );
+            var hasEmail = !!( attributes.emailValue && attributes.emailValue.trim() );
+            var hasPhone = !!( attributes.phoneValue && attributes.phoneValue.trim() );
+            var hasContacts = hasEmail || hasPhone;
+            var hasHeading = !!attributes.heading;
+            var hasBody = !!attributes.body;
+
+            if ( !hasMap && !hasContacts && !hasHeading && !hasBody ) {
+                return null;
+            }
+
             var blockProps = blockEditor.useBlockProps.save( { className: 'kowboy-location-contact' } );
+            var gridClassName = hasMap
+                ? 'kowboy-location-contact__grid'
+                : 'kowboy-location-contact__grid kowboy-location-contact__grid--no-map';
 
             return el( 'section', blockProps,
-                el( 'div', { className: 'kowboy-location-contact__grid' },
-                    el( 'div', { className: 'kowboy-location-contact__map' },
-                        attributes.mapUrl && el( 'iframe', {
+                el( 'div', { className: gridClassName },
+                    hasMap && el( 'div', { className: 'kowboy-location-contact__map' },
+                        el( 'iframe', {
                             src: attributes.mapUrl,
                             title: __( 'Map', 'kowboy' ),
                             allowFullScreen: true,
@@ -892,14 +907,14 @@
                             className: 'kowboy-location-contact__body',
                             value: attributes.body
                         } ),
-                        el( 'div', { className: 'kowboy-location-contact__contacts' },
-                            el( 'div', { className: 'kowboy-location-contact__contact' },
+                        hasContacts && el( 'div', { className: 'kowboy-location-contact__contacts' },
+                            hasEmail && el( 'div', { className: 'kowboy-location-contact__contact' },
                                 el( 'div', { className: 'kowboy-location-contact__label' }, attributes.emailLabel || __( 'E-post', 'kowboy' ) ),
-                                attributes.emailValue && el( 'a', { href: 'mailto:' + attributes.emailValue }, attributes.emailValue )
+                                el( 'a', { href: 'mailto:' + attributes.emailValue }, attributes.emailValue )
                             ),
-                            el( 'div', { className: 'kowboy-location-contact__contact' },
+                            hasPhone && el( 'div', { className: 'kowboy-location-contact__contact' },
                                 el( 'div', { className: 'kowboy-location-contact__label' }, attributes.phoneLabel || __( 'Mobil', 'kowboy' ) ),
-                                attributes.phoneValue && el( 'a', { href: 'tel:' + attributes.phoneValue }, attributes.phoneValue )
+                                el( 'a', { href: 'tel:' + attributes.phoneValue }, attributes.phoneValue )
                             )
                         )
                     )
