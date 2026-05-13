@@ -189,3 +189,27 @@ if ( !function_exists( 'kowboy_frontend_rounding_head' ) ) :
     }
 endif;
 add_action( 'wp_head', 'kowboy_frontend_rounding_head', 99 );
+
+if ( !function_exists( 'kowboy_normalize_search_properties_template' ) ) :
+    function kowboy_normalize_search_properties_template( $out, $pairs, $atts ) {
+        $incoming = isset( $atts['template'] ) ? trim( (string) $atts['template'] ) : '';
+
+        $legacy_or_empty = array(
+            '',
+            'templates/2025/list-item/kowboy-property-list-item.php',
+            '/templates/2025/list-item/kowboy-property-list-item.php',
+            'templates/kowboy-property-list-item.php',
+            '/templates/kowboy-property-list-item.php',
+        );
+
+        // Keep explicit non-legacy template values (e.g. portrait block).
+        if ( in_array( $incoming, $legacy_or_empty, true ) ) {
+            $out['template'] = 'templates/2025/list-item/property-list-item.php';
+        } else {
+            $out['template'] = $incoming;
+        }
+
+        return $out;
+    }
+endif;
+add_filter( 'shortcode_atts_kowboy_search_properties', 'kowboy_normalize_search_properties_template', 20, 3 );
