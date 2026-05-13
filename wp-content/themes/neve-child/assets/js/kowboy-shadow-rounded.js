@@ -1,26 +1,30 @@
 (() => {
   const STYLE_ID = 'kowboy-rounded-override';
+  const HOST_TAGS = ['kowboy-lead-form', 'kowboy-single-property'];
   const CSS = `
-    .contact-form-section input[type="text"],
-    .contact-form-section input[type="email"],
-    .contact-form-section input[type="tel"],
+    .contact-form-section input:not([type="checkbox"]),
     .contact-form-section select,
     .contact-form-section textarea,
     .contact-form-section button,
-    .rounded-none input,
+    .contact-form-section .btn,
+    .rounded-none input:not([type="checkbox"]),
     .rounded-none select,
     .rounded-none textarea,
     .rounded-none button,
     select.rounded-none,
     textarea.rounded-none,
     button.rounded-none,
-    .btn.rounded-none {
+    .btn.rounded-none,
+    .sold_label,
+    .viewings-action,
+    .viewings-action button,
+    .viewings-action .btn,
+    .gallery-view-more-btn {
       border-radius: 12px !important;
     }
   `;
 
-  const tryInject = () => {
-    const el = document.querySelector('kowboy-lead-form');
+  const injectInto = (el) => {
     if (!el || !el.shadowRoot) return false;
     if (el.shadowRoot.getElementById(STYLE_ID)) return true;
     const style = document.createElement('style');
@@ -30,13 +34,34 @@
     return true;
   };
 
+  const tryInjectAll = () => {
+    let injected = false;
+    HOST_TAGS.forEach((tag) => {
+      document.querySelectorAll(tag).forEach((el) => {
+        injected = injectInto(el) || injected;
+      });
+    });
+    return injected;
+  };
+
   const boot = () => {
-    if (tryInject()) return;
+    tryInjectAll();
+
+    const observer = new MutationObserver(() => {
+      tryInjectAll();
+    });
+
+    if (document.body) {
+      observer.observe(document.body, { childList: true, subtree: true });
+    }
+
     let attempts = 0;
     const timer = setInterval(() => {
       attempts += 1;
-      if (tryInject() || attempts > 40) {
+      tryInjectAll();
+      if (attempts > 40) {
         clearInterval(timer);
+        observer.disconnect();
       }
     }, 250);
   };

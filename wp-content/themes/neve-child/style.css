@@ -95,7 +95,6 @@ button.rounded-none,
 .property-list .shadow-lg .property-list-gallery .swiper-wrapper,
 .property-list .shadow-lg .property-list-gallery .swiper-slide {
     border-radius: 12px 12px 0 0;
-    overflow: hidden;
 }
 
 /* Regular search properties card: square bottom image by removing wrapper bottom radius */
