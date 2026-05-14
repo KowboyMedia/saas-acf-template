@@ -108,6 +108,13 @@ button.rounded-none,
     border-radius: 12px 12px 0 0 !important;
 }
 
+/* Search properties load-more spinner: convert JS display:block to flex for centering */
+.kowboy-property-list-wrapper .loading[style*="display:block"],
+.kowboy-property-list-wrapper .loading[style*="display: block"] {
+    display: flex !important;
+    justify-content: center;
+}
+
 /* Portrait list layout */
 .kowboy-portrait-section {
     padding-top: 50px;
