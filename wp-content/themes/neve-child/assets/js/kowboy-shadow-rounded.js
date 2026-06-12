@@ -19,8 +19,22 @@
     .viewings-action,
     .viewings-action button,
     .viewings-action .btn,
-    .gallery-view-more-btn {
+    .gallery-view-more-btn,
+    .property-gallery-item.masonry-item {
       border-radius: 12px !important;
+    }
+
+    .property-gallery-item.masonry-item {
+      overflow: hidden !important;
+    }
+
+    .property-gallery-item.masonry-item a,
+    .property-gallery-item.masonry-item img {
+      border-radius: inherit !important;
+    }
+
+    .property-gallery-item.masonry-item a {
+      display: block;
     }
   `;
 
