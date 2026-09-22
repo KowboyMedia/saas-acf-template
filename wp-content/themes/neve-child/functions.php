@@ -33,6 +33,8 @@ add_action( 'wp_enqueue_scripts', 'child_theme_configurator_css', 10 );
 require_once get_stylesheet_directory() . '/inc/gutenberg/blocks.php';
 require_once get_stylesheet_directory() . '/inc/acf/blocks.php';
 require_once get_stylesheet_directory() . '/inc/gutenberg/server-blocks.php';
+require_once get_stylesheet_directory() . '/inc/theme-settings/header-footer.php';
+require_once get_stylesheet_directory() . '/inc/theme-settings/admin-page.php';
 
 if ( !function_exists( 'kowboy_enqueue_shadow_rounding' ) ) :
     function kowboy_enqueue_shadow_rounding() {

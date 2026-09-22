@@ -1,0 +1,253 @@
+{
+  "kowboy_hf_version": 1,
+  "generated_at": "2026-09-22T00:00:00+00:00",
+  "source": "https://norbanmakleri.se/",
+  "neve_version": "4.2.2",
+  "theme_mods": {
+    "neve_migrated_builders": true,
+    "neve_container_width": "{\"mobile\":748,\"tablet\":992,\"desktop\":1240}",
+    "hfg_header_layout_v2": "{\"desktop\":{\"top\":{\"left\":[],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[]},\"main\":{\"left\":[{\"id\":\"logo\"}],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[{\"id\":\"primary-menu\"}]},\"bottom\":{\"left\":[],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[]}},\"mobile\":{\"top\":{\"left\":[],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[]},\"main\":{\"left\":[{\"id\":\"logo\"}],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[{\"id\":\"nav-icon\"}]},\"bottom\":{\"left\":[],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[]},\"sidebar\":[{\"id\":\"primary-menu\"}]}}",
+    "hfg_header_layout_top_background": {
+      "type": "color",
+      "imageUrl": "",
+      "focusPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "colorValue": "#f0f0f0",
+      "overlayColorValue": "",
+      "overlayOpacity": 50,
+      "fixed": false,
+      "useFeatured": false
+    },
+    "hfg_header_layout_main_layout": "layout-full-contained",
+    "hfg_header_layout_main_background": {
+      "type": "color",
+      "imageUrl": "",
+      "focusPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "colorValue": "rgba(0,0,0,0)",
+      "overlayColorValue": "",
+      "overlayOpacity": 50,
+      "fixed": false,
+      "useFeatured": false
+    },
+    "hfg_header_layout_bottom_background": {
+      "type": "color",
+      "imageUrl": "",
+      "focusPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "colorValue": "#ffffff",
+      "overlayColorValue": "",
+      "overlayOpacity": 50,
+      "fixed": false,
+      "useFeatured": false
+    },
+    "hfg_header_layout_sidebar_layout": "slide_left",
+    "hfg_header_layout_sidebar_width": "{\"mobile\":\"360\",\"tablet\":\"360\",\"desktop\":\"360\"}",
+    "hfg_header_layout_sidebar_background": {
+      "type": "color",
+      "imageUrl": "",
+      "focusPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "colorValue": "var(--nv-site-bg)",
+      "overlayColorValue": "",
+      "overlayOpacity": 50,
+      "fixed": false,
+      "useFeatured": false
+    },
+    "logo_display": "default",
+    "logo_show_tagline": false,
+    "logo_color": "var(--nv-text-color)",
+    "logo_max_width": "{\"mobile\":100,\"tablet\":100,\"desktop\":160}",
+    "logo_component_align": {
+      "mobile": "left",
+      "tablet": "left",
+      "desktop": "left"
+    },
+    "primary-menu_style": "style-border-bottom",
+    "primary-menu_color": "var(--nv-text-color)",
+    "primary-menu_hover_color": "#000000",
+    "primary-menu_hover_text_color": "var(--nv-text-color)",
+    "primary-menu_active_color": "var(--nv-text-color)",
+    "primary-menu_component_typeface": {
+      "fontSize": {
+        "suffix": {
+          "mobile": "em",
+          "tablet": "em",
+          "desktop": "em"
+        },
+        "mobile": 1,
+        "tablet": 1,
+        "desktop": 0.8
+      },
+      "lineHeight": {
+        "mobile": 1.6,
+        "tablet": 1.6,
+        "desktop": 1.6,
+        "suffix": {
+          "mobile": "em",
+          "tablet": "em",
+          "desktop": "em"
+        }
+      },
+      "letterSpacing": {
+        "mobile": 0,
+        "tablet": 0,
+        "desktop": 0
+      },
+      "fontWeight": "600",
+      "textTransform": "uppercase"
+    },
+    "nav-icon_button_appearance": {
+      "borderRadius": {
+        "top": "3",
+        "left": "3",
+        "bottom": "3",
+        "right": "3"
+      },
+      "borderWidth": {
+        "top": 1,
+        "right": 1,
+        "bottom": 1,
+        "left": 1
+      },
+      "useShadow": false,
+      "shadowColor": "rgba(0,0,0,0.5)",
+      "shadowProperties": {
+        "blur": 5,
+        "width": 0,
+        "height": 0
+      },
+      "useShadowHover": false,
+      "shadowColorHover": "rgba(0,0,0,0.5)",
+      "shadowPropertiesHover": {
+        "blur": 5,
+        "width": 0,
+        "height": 0
+      },
+      "type": "outline",
+      "background": "",
+      "backgroundHover": "",
+      "text": "",
+      "textHover": ""
+    },
+    "hfg_footer_layout_v2": "{\"desktop\":{\"top\":{\"left\":[{\"id\":\"footer-four-widgets\"}],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[]},\"main\":{\"left\":[{\"id\":\"footer-one-widgets\"}],\"c-left\":[{\"id\":\"footer-two-widgets\"}],\"center\":[{\"id\":\"footer-three-widgets\"}],\"c-right\":[],\"right\":[]},\"bottom\":{\"left\":[],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[]}},\"mobile\":{\"top\":{\"left\":[],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[]},\"main\":{\"left\":[],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[]},\"bottom\":{\"left\":[],\"c-left\":[],\"center\":[],\"c-right\":[],\"right\":[]}}}",
+    "hfg_footer_layout_top_layout": "layout-fullwidth",
+    "hfg_footer_layout_top_columns_number": 1,
+    "hfg_footer_layout_top_columns_layout": "equal",
+    "hfg_footer_layout_top_background": {
+      "type": "color",
+      "imageUrl": "",
+      "focusPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "colorValue": "#ffffff",
+      "overlayColorValue": "",
+      "overlayOpacity": 50,
+      "fixed": false,
+      "useFeatured": false
+    },
+    "hfg_footer_layout_main_layout": "layout-full-contained",
+    "hfg_footer_layout_main_columns_number": 3,
+    "hfg_footer_layout_main_columns_layout": "center-half",
+    "hfg_footer_layout_main_background": {
+      "type": "color",
+      "imageUrl": "",
+      "focusPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "colorValue": "var(--nv-site-bg)",
+      "overlayColorValue": "",
+      "overlayOpacity": 50,
+      "fixed": false,
+      "useFeatured": false
+    },
+    "hfg_footer_layout_bottom_columns_number": 1,
+    "hfg_footer_layout_bottom_background": {
+      "type": "color",
+      "imageUrl": "",
+      "focusPoint": {
+        "x": 0.5,
+        "y": 0.5
+      },
+      "colorValue": "var(--nv-dark-bg)",
+      "overlayColorValue": "",
+      "overlayOpacity": 50,
+      "fixed": false,
+      "useFeatured": false
+    },
+    "hfg_footer_layout_bottom_new_text_color": "var(--nv-text-dark-bg)",
+    "footer-one-widgets_component_align": {
+      "mobile": "left",
+      "tablet": "left",
+      "desktop": "left"
+    },
+    "footer-two-widgets_component_align": {
+      "mobile": "left",
+      "tablet": "left",
+      "desktop": "center"
+    },
+    "footer-three-widgets_component_align": {
+      "mobile": "left",
+      "tablet": "left",
+      "desktop": "left"
+    },
+    "footer-four-widgets_component_align": {
+      "mobile": "left",
+      "tablet": "left",
+      "desktop": "left"
+    }
+  },
+  "widgets": {
+    "footer-four-widgets": [
+      {
+        "type": "block",
+        "settings": {
+          "content": "<!-- wp:paragraph -->\n<p><kowboy-lead-form></kowboy-lead-form></p>\n<!-- /wp:paragraph -->"
+        }
+      }
+    ],
+    "footer-one-widgets": [
+      {
+        "type": "block",
+        "settings": {
+          "content": "<!-- wp:site-logo {\"width\":209,\"isLink\":true} /-->"
+        }
+      },
+      {
+        "type": "block",
+        "settings": {
+          "content": "<!-- wp:html -->\n<span style=\"color:grey;\">© {{year}} Alla rättigheter reserverade.</span>\n<!-- /wp:html -->"
+        }
+      }
+    ],
+    "footer-two-widgets": [
+      {
+        "type": "nav_menu",
+        "menu_location": "footer",
+        "menu_slug": "footer",
+        "settings": {
+          "title": ""
+        }
+      }
+    ],
+    "footer-three-widgets": [
+      {
+        "type": "block",
+        "settings": {
+          "content": "<!-- wp:html -->\n<ul class=\"elementor-icon-list-items\">\n<li class=\"elementor-icon-list-item\">\n<span class=\"elementor-icon-list-icon\" style=\"width:50px;\"><svg aria-hidden=\"true\" class=\"e-font-icon-svg e-fas-map-marker-alt\" viewBox=\"0 0 384 512\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:10px;\"><path d=\"M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z\"></path></svg></span>\n<span class=\"elementor-icon-list-text\">Besöksadress Gatuadress 1, Stad</span>\n</li>\n<li class=\"elementor-icon-list-item\">\n<a href=\"mailto:{{admin_email}}\">\n<span class=\"elementor-icon-list-icon\"><svg aria-hidden=\"true\" class=\"e-font-icon-svg e-far-envelope\" viewBox=\"0 0 512 512\" xmlns=\"http://www.w3.org/2000/svg\" style=\"width:14px;\"><path d=\"M464 64H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V112c0-26.51-21.49-48-48-48zm0 48v40.805c-22.422 18.259-58.168 46.651-134.587 106.49-16.841 13.247-50.201 45.072-73.413 44.701-23.208.375-56.579-31.459-73.413-44.701C106.18 199.465 70.425 171.067 48 152.805V112h416zM48 400V214.398c22.914 18.251 55.409 43.862 104.938 82.646 21.857 17.205 60.134 55.186 103.062 54.955 42.717.231 80.509-37.199 103.053-54.947 49.528-38.783 82.032-64.401 104.947-82.653V400H48z\"></path></svg></span>\n<span class=\"elementor-icon-list-text\">{{admin_email}}</span>\n</a>\n</li>\n</ul>\n<!-- /wp:html -->"
+        }
+      }
+    ]
+  },
+  "custom_css": "/* Transparent header: pull hero / single property up under the header */\n.kowboy-hero-background-buttons--transparent-header {\n    margin-top: -89px;\n}\nkowboy-single-property {\n    top: -89px;\n}\n.single-kowboy_properties ul#nv-primary-navigation-main a {\n    color: white;\n}\n\n/* Footer */\n#cb-row--footer-desktop-top .builder-item {\n    padding: 0;\n    margin: 0;\n}\ndiv#cb-row--footer-desktop-main {\n    padding: 50px 20px;\n}\n#menu-footer {\n    display: flex;\n    gap: 20px;\n    justify-content: center;\n}\n#cb-row--footer-desktop-bottom {\n    display: none;\n}\n\n@media (max-width: 768px) {\n    #menu-footer {\n        display: unset;\n    }\n}"
+}
